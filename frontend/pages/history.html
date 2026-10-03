@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>History | HybridAI</title>
+
+    <link rel="stylesheet" href="../css/workspace.css">
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">H</div>
+
+            <div>
+                <div class="brand-name">HybridAI</div>
+                <div class="brand-subtitle">
+                    Intelligent Image Rendering
+                </div>
+            </div>
+
+        </div>
+
+        <div class="engine-status">
+            <span class="status-dot"></span>
+            AI Engine Ready
+        </div>
+
+        <div class="user-area">
+
+            <span id="userName">User</span>
+
+            <button
+                type="button"
+                id="logoutBtn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN LAYOUT -->
+
+    <div class="app-layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <nav>
+
+                <a
+                    href="../index.html"
+                    class="nav-item"
+                >
+                    🏠
+                    <span>Workspace</span>
+                </a>
+
+                <a
+                    href="history.html"
+                    class="nav-item active"
+                >
+                    ◷
+                    <span>History</span>
+                </a>
+
+                <a
+                    href="about.html"
+                    class="nav-item"
+                >
+                    ℹ️
+                    <span>About</span>
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                Turn your ideas into stunning visuals
+                with the power of AI.
+
+            </div>
+
+        </aside>
+
+
+        <!-- HISTORY CONTENT -->
+
+        <main class="main-container">
+
+
+            <section class="hero-section">
+
+                <h1>
+                    Generation <span>History</span>
+                </h1>
+
+                <h2>
+                    Your AI Rendering Journey
+                </h2>
+
+                <p>
+                    View your previously generated images
+                    and their generation details.
+                </p>
+
+            </section>
+
+
+            <!-- LOADING -->
+
+            <div
+                id="historyLoading"
+                class="generation-loading"
+            >
+
+                <div class="loading-spinner"></div>
+
+                <h3>
+                    Loading your history...
+                </h3>
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            <div
+                id="historyError"
+                class="generation-error"
+                hidden
+            >
+
+                <div class="error-icon">!</div>
+
+                <h3>
+                    Unable to load history
+                </h3>
+
+                <p id="historyErrorMessage">
+                    Something went wrong.
+                </p>
+
+            </div>
+
+
+            <!-- EMPTY -->
+
+            <div
+                id="historyEmpty"
+                class="output-placeholder"
+                hidden
+            >
+
+                <div class="placeholder-icon">
+                    ◷
+                </div>
+
+                <h3>
+                    No generations yet
+                </h3>
+
+                <p>
+                    Generate your first AI image
+                    from the workspace.
+                </p>
+
+            </div>
+
+
+            <!-- HISTORY GRID -->
+
+            <section
+                id="historyGrid"
+                class="history-grid"
+                hidden
+            >
+
+            </section>
+
+
+            <footer class="workspace-footer">
+
+                <span>HybridAI</span>
+
+                <span>×</span>
+
+                <span>
+                    Intelligent Image Rendering
+                </span>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <script src="../js/history.js"></script>
+
+</body>
+
+</html>
