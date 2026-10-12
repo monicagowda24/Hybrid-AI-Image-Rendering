@@ -1,17 +1,11 @@
-from PIL import Image
-from controlnet_aux import LineartDetector
+from PIL import Image, ImageEnhance, ImageFilter
 
-
-ANNOTATOR_ID = "lllyasviel/Annotators"
-IMAGE_SIZE = (512, 512)
-
-
-print("Loading local line-art processor...")
-
-lineart_detector = LineartDetector.from_pretrained(
-    ANNOTATOR_ID,
-    local_files_only=True
+from backend.app.services.image_generator import (
+    lineart_detector
 )
+
+
+IMAGE_SIZE = (512, 512)
 
 
 def process_sketch(
@@ -23,12 +17,29 @@ def process_sketch(
             "Reference image is required"
         )
 
-    reference_image = reference_image.convert("RGB")
+    # Convert to RGB
+    image = reference_image.convert("RGB")
 
-    reference_image = reference_image.resize(
-        IMAGE_SIZE
+    # Resize while preserving good detail
+    image = image.resize(
+        IMAGE_SIZE,
+        Image.Resampling.LANCZOS
     )
 
-    return lineart_detector(
-        reference_image
+    # Improve contrast so the structure
+    # is easier for ControlNet to understand.
+    image = ImageEnhance.Contrast(
+        image
+    ).enhance(1.3)
+
+    # Slightly sharpen the reference.
+    image = image.filter(
+        ImageFilter.SHARPEN
     )
+
+    # Extract clean line structure.
+    control_image = lineart_detector(
+        image
+    )
+
+    return control_image.convert("RGB")

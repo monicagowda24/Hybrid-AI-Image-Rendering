@@ -3,7 +3,7 @@ from typing import Optional
 
 
 class GenerationRequest(BaseModel):
-    prompt: str = Field(..., min_length=1)
+    prompt: str = ""
     rendering_style: str = "photorealistic"
     reference_strength: int = Field(
         50,

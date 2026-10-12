@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About | HybridAI</title>
+
+    <link rel="stylesheet" href="../css/workspace.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-icon">H</div>
+
+            <div>
+                <div class="brand-name">HybridAI</div>
+                <div class="brand-subtitle">
+                    Intelligent Image Rendering
+                </div>
+            </div>
+        </div>
+
+        <nav>
+            <a href="../index.html">Workspace</a>
+            <a href="history.html">History</a>
+            <a href="about.html" class="active">About</a>
+        </nav>
+
+        <div class="user-area">
+            <span id="userName">User</span>
+            <button type="button" id="logoutBtn">Logout</button>
+        </div>
+
+    </header>
+
+
+    <!-- ABOUT CONTENT -->
+
+    <main class="main-container">
+
+        <section class="hero-section">
+
+            <h1>
+                About <span>HybridAI</span>
+            </h1>
+
+            <h2>
+                Hybrid Generative AI Architecture
+            </h2>
+
+            <p>
+                A text-and-sketch conditioned image rendering
+                system designed to transform creative ideas into
+                AI-generated visual content.
+            </p>
+
+        </section>
+
+
+        <section class="history-grid">
+
+            <!-- PROJECT -->
+
+            <article class="history-card">
+
+                <div class="history-details">
+
+                    <h3>✦ Project Overview</h3>
+
+                    <p>
+                        HybridAI combines natural language prompts
+                        with visual guidance to create controlled
+                        AI-generated images.
+                    </p>
+
+                    <p>
+                        Users can provide a text description,
+                        upload a reference image, or draw a sketch
+                        to guide the rendering process.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- WORKFLOW -->
+
+            <article class="history-card">
+
+                <div class="history-details">
+
+                    <h3>⚡ Rendering Workflow</h3>
+
+                    <p>
+                        <strong>1.</strong> Enter a text prompt
+                    </p>
+
+                    <p>
+                        <strong>2.</strong> Add a reference image
+                        or sketch
+                    </p>
+
+                    <p>
+                        <strong>3.</strong> Generate the image
+                        using AI
+                    </p>
+
+                    <p>
+                        <strong>4.</strong> Evaluate image quality
+                    </p>
+
+                    <p>
+                        <strong>5.</strong> Refine the generated image
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- TECHNOLOGY -->
+
+            <article class="history-card">
+
+                <div class="history-details">
+
+                    <h3>⚙️ Technologies Used</h3>
+
+                    <p>
+                        <strong>Frontend:</strong>
+                        HTML, CSS and JavaScript
+                    </p>
+
+                    <p>
+                        <strong>Backend:</strong>
+                        Python and FastAPI
+                    </p>
+
+                    <p>
+                        <strong>AI:</strong>
+                        Stable Diffusion and ControlNet
+                    </p>
+
+                    <p>
+                        <strong>Database:</strong>
+                        PostgreSQL
+                    </p>
+
+                    <p>
+                        <strong>Security:</strong>
+                        JWT authentication and bcrypt
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- FEATURES -->
+
+            <article class="history-card">
+
+                <div class="history-details">
+
+                    <h3>◆ Key Features</h3>
+
+                    <p>• Text-conditioned image generation</p>
+
+                    <p>• Reference image conditioning</p>
+
+                    <p>• Interactive sketch conditioning</p>
+
+                    <p>• Image quality evaluation</p>
+
+                    <p>• AI image refinement</p>
+
+                    <p>• Generation history</p>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <footer class="workspace-footer">
+
+            <span>HybridAI</span>
+            <span>×</span>
+            <span>Intelligent Image Rendering</span>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const token =
+                    localStorage.getItem("access_token");
+
+                const userData =
+                    localStorage.getItem("user");
+
+                if (!token || !userData) {
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                try {
+
+                    const user =
+                        JSON.parse(userData);
+
+                    document.getElementById("userName")
+                        .textContent =
+                        user.name || "User";
+
+                } catch {
+
+                    document.getElementById("userName")
+                        .textContent = "User";
+                }
+
+
+                document.getElementById("logoutBtn")
+                    .addEventListener(
+                        "click",
+                        function () {
+
+                            localStorage.removeItem(
+                                "access_token"
+                            );
+
+                            localStorage.removeItem(
+                                "user"
+                            );
+
+                            localStorage.removeItem(
+                                "lastGeneration"
+                            );
+
+                            window.location.href =
+                                "login.html";
+                        }
+                    );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

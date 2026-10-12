@@ -14,6 +14,7 @@ from backend.app.database.connection import get_connection
 from backend.app.routers.history import router as history_router
 from backend.app.routers.auth import router as auth_router
 from backend.app.routers.generation import router as generation_router
+from backend.app.routers.refinement import router as refinement_router
 from backend.app.database.connection import get_connection
 from backend.app.database.models import create_tables
 from backend.app.core.logging import setup_logging
@@ -66,7 +67,7 @@ def initialize_database():
 app.include_router(auth_router)
 app.include_router(history_router)
 app.include_router(generation_router)
-
+app.include_router(refinement_router)
 
 # =====================================================
 # GENERATED IMAGES

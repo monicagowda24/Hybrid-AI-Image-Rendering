@@ -46,7 +46,7 @@ async def generate_image_api(
         get_current_user_id
     ),
 
-    prompt: str = Form(...),
+    prompt: str = Form(""),
 
     rendering_style: str = Form(
         "photorealistic"
@@ -66,17 +66,40 @@ async def generate_image_api(
 
     prompt = prompt.strip()
 
-    if not prompt:
+
+    # ---------------------------------------------
+    # VISUAL INPUT VALIDATION
+    # ---------------------------------------------
+
+    if not prompt and reference_image is None:
+
         raise HTTPException(
             status_code=400,
-            detail="Prompt cannot be empty"
+            detail=(
+                "Please provide a prompt or "
+                "upload a reference image or sketch."
+            )
         )
 
+
+    # ---------------------------------------------
+    # REFERENCE STRENGTH
+    # ---------------------------------------------
+
     if not 0 <= reference_strength <= 100:
+
         raise HTTPException(
             status_code=400,
-            detail="Reference strength must be between 0 and 100"
+            detail=(
+                "Reference strength must be "
+                "between 0 and 100"
+            )
         )
+
+
+    # ---------------------------------------------
+    # REFERENCE IMAGE VALIDATION
+    # ---------------------------------------------
 
     if reference_image:
 
@@ -87,10 +110,15 @@ async def generate_image_api(
         }
 
         if reference_image.content_type not in allowed_types:
+
             raise HTTPException(
                 status_code=400,
-                detail="Only PNG, JPG and JPEG images are allowed"
+                detail=(
+                    "Only PNG, JPG and JPEG "
+                    "images are allowed"
+                )
             )
+
 
     try:
 
@@ -107,6 +135,19 @@ async def generate_image_api(
             reference_pil = Image.open(
                 io.BytesIO(image_bytes)
             ).convert("RGB")
+
+
+        # ---------------------------------------------
+        # FALLBACK PROMPT
+        # ---------------------------------------------
+
+        if not prompt:
+
+            prompt = (
+                "Create a detailed, high quality "
+                "image based on the provided "
+                "visual reference."
+            )
 
 
         # ---------------------------------------------
@@ -142,9 +183,11 @@ async def generate_image_api(
             )
         ).convert("RGB")
 
+
         evaluation = evaluate_image(
             generated_image
         )
+
 
         print(
             "Image evaluation:",
@@ -159,6 +202,7 @@ async def generate_image_api(
         filename = (
             f"generated_{uuid.uuid4().hex}.png"
         )
+
 
         save_generated_image(
             image_data,
@@ -190,7 +234,11 @@ async def generate_image_api(
                     sharpness,
                     quality
                 )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                VALUES
+                (
+                    %s, %s, %s, %s, %s,
+                    %s, %s, %s, %s, %s
+                )
                 """,
                 (
                     current_user_id,
@@ -276,5 +324,7 @@ async def generate_image_api(
 
         raise HTTPException(
             status_code=500,
-            detail=f"Image generation failed: {str(e)}"
+            detail=(
+                f"Image generation failed: {str(e)}"
+            )
         )

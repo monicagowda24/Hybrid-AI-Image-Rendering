@@ -3,16 +3,25 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>HybridAI | Intelligent Image Rendering</title>
 
-    <link rel="stylesheet" href="css/workspace.css">
+    <link
+        rel="stylesheet"
+        href="css/workspace.css"
+    >
 </head>
 
 <body>
 
-    <!-- ================= HEADER ================= -->
+    <!-- =========================
+         HEADER
+         ========================= -->
 
     <header class="topbar">
 
@@ -23,23 +32,30 @@
             </div>
 
             <div>
-                <div class="brand-name">
-                    HybridAI
-                </div>
-
-                <div class="brand-subtitle">
-                    Intelligent Image Rendering
-                </div>
+                <h1>HybridAI</h1>
+                <span>Intelligent Image Rendering</span>
             </div>
 
         </div>
 
+        <nav>
 
-        <div class="engine-status">
-            <span class="status-dot"></span>
-            AI Engine Ready
-        </div>
+            <a
+                href="index.html"
+                class="active"
+            >
+                Workspace
+            </a>
 
+            <a href="pages/history.html">
+                History
+            </a>
+
+            <a href="pages/about.html">
+                About
+            </a>
+
+        </nav>
 
         <div class="user-area">
 
@@ -59,274 +75,524 @@
     </header>
 
 
-    <!-- ================= APP LAYOUT ================= -->
+    <!-- =========================
+         MAIN WORKSPACE
+         ========================= -->
 
-    <div class="app-layout">
+    <main class="workspace">
 
+        <section class="workspace-header">
 
-        <!-- ================= SIDEBAR ================= -->
-
-        <aside class="sidebar">
-
-            <nav>
-
-                <a
-                    href="index.html"
-                    class="nav-item active"
-                >
-                    🏠
-                    <span>Workspace</span>
-                </a>
-
-
-                <a
-                    href="pages/history.html"
-                    class="nav-item"
-                >
-                    ◷
-                    <span>History</span>
-                </a>
-
-
-                <a
-                    href="pages/about.html"
-                    class="nav-item"
-                >
-                    ℹ️
-                    <span>About</span>
-                </a>
-
-            </nav>
-
-
-            <div class="sidebar-bottom">
-
-                Turn your ideas into stunning visuals
-                with the power of AI.
-
-            </div>
-
-        </aside>
-
-
-        <!-- ================= MAIN ================= -->
-
-        <main class="main-container">
-
-
-            <!-- ================= HERO ================= -->
-
-            <section class="hero-section">
-
-                <h1>
-                    Hybrid<span>AI</span>
-                </h1>
+            <div>
 
                 <h2>
-                    Text &amp; Sketch Conditioned Image Rendering
+                    AI Image Workspace
                 </h2>
 
                 <p>
-                    Bring your ideas to life with the perfect combination
-                    of text and sketch.
+                    Create images using text,
+                    references and sketches.
                 </p>
+
+            </div>
+
+            <div class="engine-status">
+                <span></span>
+                AI Engine Ready
+            </div>
+
+        </section>
+
+
+        <div class="workspace-grid">
+
+            <!-- =========================
+                 INPUT PANEL
+                 ========================= -->
+
+            <section class="input-panel">
+
+                <div class="panel-header">
+
+                    <h2>
+                        Create Your Image
+                    </h2>
+
+                    <p>
+                        Describe your idea and
+                        optionally provide a reference.
+                    </p>
+
+                </div>
+
+
+                <!-- PROMPT -->
+
+                <div class="form-group">
+
+                    <label for="promptInput">
+                        Image Prompt
+                    </label>
+
+                    <textarea
+                        id="promptInput"
+                        maxlength="1000"
+                        placeholder="Describe the image you want to create..."
+                    ></textarea>
+
+                    <div
+                        id="promptCounter"
+                        class="prompt-counter"
+                    >
+                        0 / 1000
+                    </div>
+
+                </div>
+
+
+                <!-- STYLE -->
+
+                <div class="form-group">
+
+                    <label for="renderingStyle">
+                        Rendering Style
+                    </label>
+
+                    <select id="renderingStyle">
+
+                        <option value="photorealistic">
+                            Photorealistic
+                        </option>
+
+                        <option value="cinematic">
+                            Cinematic
+                        </option>
+
+                        <option value="digital art">
+                            Digital Art
+                        </option>
+
+                        <option value="illustration">
+                            Illustration
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- RESOLUTION -->
+
+                <div class="form-group">
+
+                    <label for="resolution">
+                        Resolution
+                    </label>
+
+                    <select id="resolution">
+
+                        <option value="512x512">
+                            512 × 512
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- =========================
+                     REFERENCE IMAGE
+                     ========================= -->
+
+                <div class="form-group">
+
+                    <label>
+                        Reference Image
+                    </label>
+
+                    <div
+                        id="uploadArea"
+                        class="upload-area"
+                    >
+
+                        <input
+                            type="file"
+                            id="referenceImage"
+                            accept="image/png,image/jpeg,image/jpg"
+                            hidden
+                        >
+
+                        <label
+                            for="referenceImage"
+                            class="upload-label"
+                        >
+                            <span class="upload-icon">
+                                ↑
+                            </span>
+
+                            <strong>
+                                Upload Reference
+                            </strong>
+
+                            <small>
+                                PNG, JPG or JPEG
+                            </small>
+                        </label>
+
+                    </div>
+
+
+                    <div
+                        id="imagePreviewContainer"
+                        class="image-preview-container"
+                        hidden
+                    >
+
+                        <img
+                            id="imagePreview"
+                            alt="Reference preview"
+                        >
+
+                        <button
+                            type="button"
+                            id="removeImage"
+                        >
+                            Remove
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- REFERENCE STRENGTH -->
+
+                <div class="form-group">
+
+                    <label for="referenceStrength">
+                        Reference Strength
+                    </label>
+
+                    <div class="strength-row">
+
+                        <input
+                            type="range"
+                            id="referenceStrength"
+                            min="0"
+                            max="100"
+                            value="50"
+                        >
+
+                        <span id="strengthValue">
+                            50%
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     DRAWING CANVAS
+                     ========================= -->
+
+                <div class="sketch-section">
+
+                    <div class="section-title">
+                        ✏️ Draw Your Sketch
+                    </div>
+
+                    <p class="section-description">
+                        Draw a simple sketch to guide
+                        the AI image generation.
+                    </p>
+
+                    <div class="canvas-wrapper">
+
+                        <canvas
+                            id="sketchCanvas"
+                            width="512"
+                            height="512"
+                        ></canvas>
+
+                    </div>
+
+
+                    <div class="canvas-controls">
+
+                        <label for="brushSize">
+                            Brush Size
+                        </label>
+
+                        <input
+                            type="range"
+                            id="brushSize"
+                            min="1"
+                            max="30"
+                            value="5"
+                        >
+
+                        <span id="brushSizeValue">
+                            5px
+                        </span>
+
+                        <button
+                            type="button"
+                            id="clearCanvas"
+                        >
+                            Clear
+                        </button>
+
+                        <button
+                            type="button"
+                            id="useSketch"
+                        >
+                            Use Sketch
+                        </button>
+
+                    </div>
+
+                    <p
+                        id="sketchStatus"
+                        class="sketch-status"
+                    ></p>
+
+                </div>
+
+
+                <!-- =========================
+                     GENERATE BUTTON
+                     ========================= -->
+
+                <button
+                    type="button"
+                    id="generateBtn"
+                    class="generate-btn"
+                >
+                    ✨ Generate Image
+                </button>
 
             </section>
 
 
-            <!-- ================= WORKSPACE ================= -->
+            <!-- =========================
+                 OUTPUT PANEL
+                 ========================= -->
 
-            <div class="workspace-grid">
+            <section class="output-panel">
+
+                <!-- PLACEHOLDER -->
+
+                <div
+                    id="outputPlaceholder"
+                    class="output-placeholder"
+                >
+
+                    <div class="placeholder-icon">
+                        ✦
+                    </div>
+
+                    <h2>
+                        Your AI Image
+                    </h2>
+
+                    <p>
+                        Your generated image will
+                        appear here.
+                    </p>
+
+                </div>
 
 
-                <!-- ================= INPUT CARD ================= -->
+                <!-- LOADING -->
 
-                <section class="card input-card">
+                <div
+                    id="generationLoading"
+                    class="generation-loading"
+                    hidden
+                >
+
+                    <div class="loading-spinner"></div>
+
+                    <p>
+                        Generating your image...
+                    </p>
+
+                </div>
 
 
-                    <!-- TEXT PROMPT -->
+                <!-- ERROR -->
 
-                    <div class="field-group">
+                <div
+                    id="generationError"
+                    class="generation-error"
+                    hidden
+                >
 
-                        <div class="section-title">
+                    <h3>
+                        Generation Failed
+                    </h3>
 
-                            <span class="title-icon">
-                                ✦
-                            </span>
+                    <p id="errorMessage"></p>
+
+                </div>
+
+
+                <!-- =========================
+                     GENERATION RESULT
+                     ========================= -->
+
+                <div
+                    id="generationResult"
+                    class="generation-result"
+                    hidden
+                >
+
+                    <div class="result-image-wrapper">
+
+                        <img
+                            id="generatedImage"
+                            alt="Generated AI image"
+                        >
+
+                    </div>
+
+
+                    <!-- RESULT INFORMATION -->
+
+                    <div class="result-details">
+
+                        <div class="result-item">
 
                             <span>
-                                Text Prompt
+                                Prompt
                             </span>
 
-                            <strong>
-                                *
-                            </strong>
+                            <strong id="resultPrompt"></strong>
 
                         </div>
 
+                        <div class="result-item">
+
+                            <span>
+                                Style
+                            </span>
+
+                            <strong id="resultStyle"></strong>
+
+                        </div>
+
+                        <div class="result-item">
+
+                            <span>
+                                Resolution
+                            </span>
+
+                            <strong id="resultResolution"></strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- IMAGE EVALUATION -->
+
+                    <div
+                        id="imageEvaluation"
+                        class="image-evaluation"
+                        hidden
+                    ></div>
+
+                    <!-- GENERATION COMPARISON -->
+
+<div id="comparisonSection" class="image-evaluation" hidden>
+
+    <h3>↔️ Generation Comparison</h3>
+
+    <div class="evaluation-grid">
+
+        <div class="evaluation-item">
+            <span>Original Sharpness</span>
+            <strong id="originalSharpness">N/A</strong>
+        </div>
+
+        <div class="evaluation-item">
+            <span>Refined Sharpness</span>
+            <strong id="refinedSharpness">N/A</strong>
+        </div>
+
+        <div class="evaluation-item">
+            <span>Original Contrast</span>
+            <strong id="originalContrast">N/A</strong>
+        </div>
+
+        <div class="evaluation-item">
+            <span>Refined Contrast</span>
+            <strong id="refinedContrast">N/A</strong>
+        </div>
+
+        <div class="evaluation-item">
+            <span>Original Quality</span>
+            <strong id="originalQuality">N/A</strong>
+        </div>
+
+        <div class="evaluation-item">
+            <span>Refined Quality</span>
+            <strong id="refinedQuality">N/A</strong>
+        </div>
+
+    </div>
+
+    <p id="comparisonSummary"></p>
+
+</div>
+
+<div id="refinementSection" class="refinement-section">
+
+                    <!-- =========================
+                         REFINEMENT
+                         ========================= -->
+
+                    <div
+                        id="refinementSection"
+                        class="refinement-section"
+                    >
+
+                        <h3>
+                            ✦ Refine Generated Image
+                        </h3>
+
+                        <p>
+                            Improve or modify the generated
+                            image using a new instruction.
+                        </p>
 
                         <textarea
-                            id="promptInput"
+                            id="refinementPrompt"
                             maxlength="1000"
-                            placeholder="Enter your image description (e.g., a modern house in the mountains)..."
+                            placeholder="Describe how you want to refine the image..."
                         ></textarea>
 
 
-                        <div
-                            id="promptCounter"
-                            class="prompt-counter"
-                        >
-                            0 / 1000
-                        </div>
+                        <div class="refinement-strength">
 
-                    </div>
-
-
-                    <!-- ================= REFERENCE IMAGE ================= -->
-
-                    <div class="field-group">
-
-                        <div class="section-title small">
-
-                            <span class="title-icon">
-                                ▧
-                            </span>
-
-                            <span>
-                                Reference Image (Sketch/Reference)
-                            </span>
-
-                        </div>
-
-
-                        <div class="upload-wrapper">
-
-
-                            <!-- UPLOAD -->
-
-                            <label
-                                class="upload-area"
-                                id="uploadArea"
-                            >
-
-                                <input
-                                    type="file"
-                                    id="referenceImage"
-                                    accept="image/png,image/jpeg,image/jpg"
-                                    hidden
-                                >
-
-
-                                <div>
-
-                                    <div class="upload-icon">
-                                        ▧
-                                    </div>
-
-                                    <div>
-                                        Click to upload or drag and drop
-                                    </div>
-
-                                    <small>
-                                        PNG, JPG, JPEG (Max 10 MB)
-                                    </small>
-
-                                </div>
-
+                            <label for="refinementStrength">
+                                Refinement Strength
                             </label>
-
-
-                            <!-- PREVIEW -->
-
-                            <div
-                                class="image-preview-container"
-                                id="imagePreviewContainer"
-                                hidden
-                            >
-
-                                <img
-                                    id="imagePreview"
-                                    src=""
-                                    alt="Reference preview"
-                                >
-
-
-                                <button
-                                    type="button"
-                                    id="removeImage"
-                                >
-                                    ×
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- ================= OPTIONS ================= -->
-
-                    <div class="options-grid">
-
-
-                        <!-- STYLE -->
-
-                        <div class="field-group">
-
-                            <label for="renderingStyle">
-                                🎨 Rendering Style
-                            </label>
-
-
-                            <select id="renderingStyle">
-
-                                <option value="photorealistic">
-                                    Photorealistic
-                                </option>
-
-                                <option value="digital art">
-                                    Digital Art
-                                </option>
-
-                                <option value="cinematic">
-                                    Cinematic
-                                </option>
-
-                                <option value="anime">
-                                    Anime
-                                </option>
-
-                                <option value="concept art">
-                                    Concept Art
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <!-- REFERENCE STRENGTH -->
-
-                        <div class="field-group">
-
-                            <label for="referenceStrength">
-                                Reference Strength
-                            </label>
-
 
                             <div class="strength-row">
 
                                 <input
                                     type="range"
-                                    id="referenceStrength"
+                                    id="refinementStrength"
                                     min="0"
                                     max="100"
                                     value="50"
                                 >
 
-
-                                <span id="strengthValue">
+                                <span
+                                    id="refinementStrengthValue"
+                                >
                                     50%
                                 </span>
 
@@ -335,216 +601,53 @@
                         </div>
 
 
-                        <!-- RESOLUTION -->
-
-                        <div class="field-group">
-
-                            <label for="resolution">
-                                🖥️ Resolution
-                            </label>
-
-
-                            <select id="resolution">
-
-                                <option value="512x512">
-                                    512 × 512
-                                </option>
-
-                                
-                            </select>
-
-                        </div>
-
-                    </div>
+                        <button
+                            type="button"
+                            id="refineBtn"
+                            class="generate-btn"
+                        >
+                            ✦ Refine Image
+                        </button>
 
 
-                    <!-- ================= GENERATE ================= -->
-
-                    <button
-                        type="button"
-                        id="generateBtn"
-                        class="generate-btn"
-                    >
-                        ✦ Generate Image
-                    </button>
-
-
-                </section>
-
-
-                <!-- ================= OUTPUT CARD ================= -->
-
-                <section class="card output-card">
-
-
-                    <div class="section-title">
-
-                        <span class="title-icon">
-                            ▧
-                        </span>
-
-                        <span>
-                            Generated Image
-                        </span>
-
-                    </div>
-
-
-                    <!-- ================= PLACEHOLDER ================= -->
-
-                    <div
-                        id="outputPlaceholder"
-                        class="output-placeholder"
-                    >
-
-                        <div class="placeholder-icon">
-                            ▧
-                        </div>
-
-
-                        <h3>
-                            Your generated image will appear here
-                        </h3>
-
-
-                        <p>
-                            Enter a prompt and click Generate Image.
-                        </p>
-
-                    </div>
-
-
-                    <!-- ================= LOADING ================= -->
-
-                    <div
-                        id="generationLoading"
-                        class="generation-loading"
-                        hidden
-                    >
-
-                        <div class="loading-spinner"></div>
-
-
-                        <h3>
-                            Generating your image...
-                        </h3>
-
-
-                        <p>
-                            Please wait while HybridAI creates your image.
-                        </p>
-
-                    </div>
-
-
-                    <!-- ================= ERROR ================= -->
-
-                    <div
-                        id="generationError"
-                        class="generation-error"
-                        hidden
-                    >
-
-                        <div class="error-icon">
-                            !
-                        </div>
-
-
-                        <h3>
-                            Generation failed
-                        </h3>
-
-
-                        <p id="errorMessage">
-                            Something went wrong.
-                        </p>
-
-                    </div>
-
-
-                    <!-- ================= RESULT ================= -->
-
-                    <div
-                        id="generationResult"
-                        class="generation-result"
-                        hidden
-                    >
-
-
-                        <img
-                            id="generatedImage"
-                            src=""
-                            alt="Generated AI image"
+                        <div
+                            id="refinementLoading"
+                            class="generation-loading"
+                            hidden
                         >
 
-
-                        <div class="result-details">
-
+                            <div class="loading-spinner"></div>
 
                             <p>
-                                <strong>
-                                    Prompt:
-                                </strong>
-
-                                <span id="resultPrompt"></span>
+                                Refining your image...
                             </p>
-
-
-                            <p>
-                                <strong>
-                                    Style:
-                                </strong>
-
-                                <span id="resultStyle"></span>
-                            </p>
-
-
-                            <p>
-                                <strong>
-                                    Resolution:
-                                </strong>
-
-                                <span id="resultResolution"></span>
-                            </p>
-
 
                         </div>
 
+
+                        <p
+                            id="refinementError"
+                            class="generation-error"
+                            hidden
+                        ></p>
+
                     </div>
 
+                </div>
 
-                </section>
+            </section>
 
-            </div>
+        </div>
 
-
-            <!-- ================= FOOTER ================= -->
-
-            <footer class="workspace-footer">
-
-                <span>
-                    HybridAI
-                </span>
-
-                <span>
-                    ×
-                </span>
-
-                <span>
-                    Intelligent Image Rendering
-                </span>
-
-            </footer>
+    </main>
 
 
-        </main>
-
-    </div>
-
-
-    <!-- ================= JAVASCRIPT ================= -->
+    <!-- =========================
+         JAVASCRIPT
+         ========================= -->
 
     <script src="js/workspace.js"></script>
+    <script src="js/canvas.js"></script>
 
 </body>
 
